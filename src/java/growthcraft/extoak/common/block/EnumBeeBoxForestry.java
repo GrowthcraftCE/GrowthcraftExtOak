@@ -1,7 +1,8 @@
-package growthcraft.bees.common.block;
+package growthcraft.extoak.common.block;
 
-import growthcraft.bees.GrowthCraftBees;
+import growthcraft.bees.common.block.BlockBeeBox;
 import growthcraft.core.common.definition.BlockTypeDefinition;
+import growthcraft.extoak.GrowthCraftOak;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -92,18 +93,18 @@ public enum EnumBeeBoxForestry
 
 	public BlockTypeDefinition<BlockBeeBox> getBlockDefinition()
 	{
-		if (GrowthCraftBees.beeBoxesForestry != null)
+		if (GrowthCraftOak.beeBoxesForestry != null)
 		{
-			return GrowthCraftBees.beeBoxesForestry.get(ordinal());
+			return GrowthCraftOak.beeBoxesForestry.get(ordinal());
 		}
 		return null;
 	}
 
 	public BlockTypeDefinition<BlockBeeBox> getBlockDefinitionFireproof()
 	{
-		if (GrowthCraftBees.beeBoxesForestry != null)
+		if (GrowthCraftOak.beeBoxesForestry != null)
 		{
-			return GrowthCraftBees.beeBoxesForestry.get(VALUES.length + ordinal());
+			return GrowthCraftOak.beeBoxesForestry.get(VALUES.length + ordinal());
 		}
 		return null;
 	}

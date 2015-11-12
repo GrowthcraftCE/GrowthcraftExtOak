@@ -119,7 +119,7 @@ debugClient {
 // -------------------
 
 tasks.withType(JavaCompile) {
-	options.compilerArgs += ['-Xlint:all', '-Xlint:-rawtypes', '-Xlint:deprecation', '-Xlint:-unchecked']
+	options.compilerArgs += ['-Xlint:all', '-Xlint:rawtypes', '-Xlint:deprecation', '-Xlint:unchecked']
 	options.deprecation = true
 	options.encoding = 'utf8'
 }
@@ -178,7 +178,7 @@ jar {
 
 	into('forestry/api') {
 		// Only include the forestry LICENSE
-		from project.forestryApi + "/LICENSE.md"
+		from project.forestryApi + "/LICENSE.txt"
 	}
 
 	into('thaumcraft/api') {

@@ -1,10 +1,31 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 IceDragon200
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package growthcraft.extoak;
 
 import java.util.List;
 
 import growthcraft.bees.common.block.BlockBeeBox;
-import growthcraft.bees.common.CommonProxy;
-import growthcraft.bees.common.item.ItemBlockBeeBox;
 import growthcraft.core.common.definition.BlockTypeDefinition;
 import growthcraft.core.common.ModuleContainer;
 
@@ -14,20 +35,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 @Mod(
 	modid = GrowthCraftOak.MOD_ID,
@@ -49,7 +56,7 @@ public class GrowthCraftOak
 	private GrcExtOakConfig config = new GrcExtOakConfig();
 	private ModuleContainer modules = new ModuleContainer();
 
-	public static GrcBeesConfig getConfig()
+	public static GrcExtOakConfig getConfig()
 	{
 		return instance.config;
 	}
@@ -60,6 +67,7 @@ public class GrowthCraftOak
 		config.load(event.getModConfigurationDirectory(), "growthcraft/extoak.conf");
 
 		modules.add(new growthcraft.extoak.integration.ForestryModule());
+		if (config.enableThaumcraftIntegration) modules.add(new growthcraft.extoak.integration.ThaumcraftModule());
 
 		modules.preInit();
 		register();

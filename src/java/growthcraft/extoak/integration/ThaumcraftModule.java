@@ -1,6 +1,3 @@
-package growthcraft.extoak;
-
-import growthcraft.core.ConfigBase;
 /*
  * The MIT License (MIT)
  *
@@ -24,9 +21,36 @@ import growthcraft.core.ConfigBase;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package growthcraft.extoak.integration;
 
-public class GrcExtOakConfig extends ConfigBase
+import growthcraft.bees.common.block.BlockBeeBox;
+import growthcraft.core.common.definition.BlockTypeDefinition;
+import growthcraft.core.integration.ThaumcraftModuleBase;
+import growthcraft.extoak.GrowthCraftOak;
+
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.Aspect;
+
+public class ThaumcraftModule extends ThaumcraftModuleBase
 {
-	@ConfigOption(catergory="Integration", name="Enable Thaumcraft Integration", desc="Should we integrate with Thaumcraft (if available)?")
-	public boolean enableThaumcraftIntegration = true;
+	public ThaumcraftModule()
+	{
+		super(GrowthCraftOak.MOD_ID);
+	}
+
+	@Override
+	protected void integrate()
+	{
+		if (GrowthCraftOak.beeBoxesForestry != null)
+		{
+			for (BlockTypeDefinition<BlockBeeBox> bdef : GrowthCraftOak.beeBoxesForestry)
+			{
+				if (bdef != null)
+				{
+					ThaumcraftApi.registerObjectTag(bdef.asStack(), new AspectList().add(Aspect.TREE, 4).add(Aspect.VOID, 1));
+				}
+			}
+		}
+	}
 }

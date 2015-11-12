@@ -26,16 +26,15 @@ package growthcraft.extoak.integration;
 import java.util.ArrayList;
 
 import growthcraft.bees.common.block.BlockBeeBox;
-import growthcraft.bees.common.block.EnumBeeBoxForestry;
 import growthcraft.bees.common.item.ItemBlockBeeBox;
 import growthcraft.core.common.definition.BlockTypeDefinition;
 import growthcraft.core.integration.ModIntegrationBase;
 import growthcraft.extoak.common.block.BlockBeeBoxForestry;
+import growthcraft.extoak.common.block.EnumBeeBoxForestry;
 import growthcraft.extoak.GrowthCraftOak;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ForestryModule extends ModIntegrationBase

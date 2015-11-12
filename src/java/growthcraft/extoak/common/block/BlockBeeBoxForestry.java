@@ -20,6 +20,7 @@ public class BlockBeeBoxForestry extends BlockBeeBox
 	public BlockBeeBoxForestry(EnumBeeBoxForestry type, boolean fireproof)
 	{
 		super();
+		setBlockTextureName("grcextoak:beebox");
 		this.isFireproofFlag = fireproof;
 		this.beeboxType = type;
 		setHardness(beeboxType.getHardness());
@@ -37,6 +38,7 @@ public class BlockBeeBoxForestry extends BlockBeeBox
 	}
 
 	@Override
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void getSubBlocks(Item block, CreativeTabs tab, List list)
 	{
 		list.add(new ItemStack(block));
