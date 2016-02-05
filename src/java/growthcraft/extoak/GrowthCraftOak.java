@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 IceDragon200
+ * Copyright (c) 2015, 2016 IceDragon200
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,11 @@ package growthcraft.extoak;
 
 import java.util.List;
 
+import growthcraft.api.core.module.ModuleContainer;
+import growthcraft.api.core.log.ILogger;
+import growthcraft.api.core.log.GrcLogger;
 import growthcraft.bees.common.block.BlockBeeBox;
 import growthcraft.core.common.definition.BlockTypeDefinition;
-import growthcraft.core.common.ModuleContainer;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -53,6 +55,7 @@ public class GrowthCraftOak
 
 	public static List<BlockTypeDefinition<BlockBeeBox>> beeBoxesForestry;
 
+	private ILogger logger = new GrcLogger(MOD_ID);
 	private GrcExtOakConfig config = new GrcExtOakConfig();
 	private ModuleContainer modules = new ModuleContainer();
 
@@ -64,6 +67,7 @@ public class GrowthCraftOak
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		config.setLogger(logger);
 		config.load(event.getModConfigurationDirectory(), "growthcraft/extoak.conf");
 
 		modules.add(new growthcraft.extoak.integration.ForestryModule());
