@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015, 2016 IceDragon200
+ * Copyright (c) 2016 IceDragon200
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,48 +24,46 @@
 package growthcraft.extoak.integration;
 
 import growthcraft.bees.common.block.BlockBeeBox;
+import growthcraft.bees.common.item.ItemBlockBeeBox;
 import growthcraft.core.common.definition.BlockTypeDefinition;
-import growthcraft.core.integration.ThaumcraftModuleBase;
+import growthcraft.core.integration.bop.BopPlatform;
+import growthcraft.core.integration.bop.EnumBopWoodType;
+import growthcraft.core.integration.ModIntegrationBase;
+import growthcraft.extoak.common.block.BlockBeeBoxBiomesOPlenty;
 import growthcraft.extoak.GrowthCraftOak;
-import growthcraft.api.core.item.ItemKey;
 
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.Aspect;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.ItemStack;
 
-public class ThaumcraftModule extends ThaumcraftModuleBase
+public class BoPModule extends ModIntegrationBase
 {
-	public ThaumcraftModule()
+	public BoPModule()
 	{
-		super(GrowthCraftOak.MOD_ID);
+		super(GrowthCraftOak.MOD_ID, BopPlatform.MOD_ID);
 	}
 
 	@Override
-	protected void integrate()
+	public void doPreInit()
 	{
-		if (GrowthCraftOak.beeBoxesForestry != null)
+		GrowthCraftOak.beeBoxBiomesOPlenty = new BlockTypeDefinition<BlockBeeBox>(new BlockBeeBoxBiomesOPlenty());
+	}
+
+	@Override
+	public void doRegister()
+	{
+		GrowthCraftOak.beeBoxBiomesOPlenty.register("grc.BeeBox.BiomesOPlenty", ItemBlockBeeBox.class);
+	}
+
+	@Override
+	protected void doLateRegister()
+	{
+		for (EnumBopWoodType type : EnumBopWoodType.VALUES)
 		{
-			for (BlockTypeDefinition<BlockBeeBox> bdef : GrowthCraftOak.beeBoxesForestry)
+			final ItemStack planks = type.asPlanksItemStack();
+			if (planks != null)
 			{
-				if (bdef != null)
-				{
-					ThaumcraftApi.registerObjectTag(bdef.asStack(1, ItemKey.WILDCARD_VALUE), new AspectList().add(Aspect.TREE, 4).add(Aspect.VOID, 1));
-				}
+				GameRegistry.addShapedRecipe(GrowthCraftOak.beeBoxBiomesOPlenty.asStack(1, type.meta), " A ", "A A", "AAA", 'A', planks);
 			}
-		}
-		if (GrowthCraftOak.beeBoxesForestryFireproof != null)
-		{
-			for (BlockTypeDefinition<BlockBeeBox> bdef : GrowthCraftOak.beeBoxesForestryFireproof)
-			{
-				if (bdef != null)
-				{
-					ThaumcraftApi.registerObjectTag(bdef.asStack(1, ItemKey.WILDCARD_VALUE), new AspectList().add(Aspect.TREE, 4).add(Aspect.VOID, 1));
-				}
-			}
-		}
-		if (GrowthCraftOak.beeBoxBiomesOPlenty != null)
-		{
-			ThaumcraftApi.registerObjectTag(GrowthCraftOak.beeBoxBiomesOPlenty.asStack(1, ItemKey.WILDCARD_VALUE), new AspectList().add(Aspect.TREE, 4).add(Aspect.VOID, 1));
 		}
 	}
 }

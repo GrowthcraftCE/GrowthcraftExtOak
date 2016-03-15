@@ -26,6 +26,7 @@ package growthcraft.extoak.common.block;
 import java.util.List;
 
 import growthcraft.bees.common.block.BlockBeeBox;
+import growthcraft.core.integration.bop.EnumBopWoodType;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,52 +35,24 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
 
-public class BlockBeeBoxForestry extends BlockBeeBox
+public class BlockBeeBoxBiomesOPlenty extends BlockBeeBox
 {
-	private final EnumBeeBoxForestry[] beeboxTypes;
-	private final boolean isFireproofFlag;
-	private final int metaOffset;
-	private final int subIndex;
-
-	public BlockBeeBoxForestry(EnumBeeBoxForestry[] types, int offset, int index, boolean fireproof)
+	public BlockBeeBoxBiomesOPlenty()
 	{
 		super();
 		setBlockTextureName("grcextoak:beebox");
-		this.beeboxTypes = types;
-		this.metaOffset = offset;
-		this.subIndex = index;
-		this.isFireproofFlag = fireproof;
 		setHardness(2f);
-		setBlockName(String.format("grc.BeeBox.Forestry.%d.%s", subIndex, isFireproofFlag ? "Fireproof" : "Normal"));
-	}
-
-	public EnumBeeBoxForestry getBeeBoxType(World world, int x, int y, int z)
-	{
-		final int meta = world.getBlockMetadata(x, y, z);
-		return beeboxTypes[MathHelper.clamp_int(meta, 0, beeboxTypes.length)];
-	}
-
-	@Override
-	public float getBlockHardness(World world, int x, int y, int z)
-	{
-		return getBeeBoxType(world, x, y, z).getHardness();
-	}
-
-	public boolean isFireproof()
-	{
-		return isFireproofFlag;
+		setBlockName("grc.BeeBox.BiomesOPlenty");
 	}
 
 	@Override
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void getSubBlocks(Item block, CreativeTabs tab, List list)
 	{
-		for (EnumBeeBoxForestry type : beeboxTypes)
+		for (int i = 0; i < EnumBopWoodType.VALUES.length; ++i)
 		{
-			list.add(new ItemStack(block, 1, type.col));
+			list.add(new ItemStack(block, 1, i));
 		}
 	}
 
@@ -87,10 +60,10 @@ public class BlockBeeBoxForestry extends BlockBeeBox
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg)
 	{
-		this.icons = new IIcon[4 * beeboxTypes.length];
-		for (EnumBeeBoxForestry type : beeboxTypes)
+		this.icons = new IIcon[4 * EnumBopWoodType.VALUES.length];
+		for (EnumBopWoodType type : EnumBopWoodType.VALUES)
 		{
-			registerBeeBoxIcons(reg, String.format("/forestry/%s/", type.name), type.col);
+			registerBeeBoxIcons(reg, String.format("/biomesoplenty/%s/", type.name), type.meta);
 		}
 	}
 }

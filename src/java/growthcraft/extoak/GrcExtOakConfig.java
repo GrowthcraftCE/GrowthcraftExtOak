@@ -27,6 +27,12 @@ import growthcraft.core.ConfigBase;
 
 public class GrcExtOakConfig extends ConfigBase
 {
+	@ConfigOption(catergory="Integration", name="Enable Forestry Integration", desc="Should we integrate with Forestry (if available)?")
+	public boolean enableForestryIntegration = true;
+
+	@ConfigOption(catergory="Integration", name="Enable BiomesOPlenty Integration", desc="Should we integrate with BiomesOPlenty (if available)?")
+	public boolean enableBoPIntegration = true;
+
 	@ConfigOption(catergory="Integration", name="Enable Thaumcraft Integration", desc="Should we integrate with Thaumcraft (if available)?")
 	public boolean enableThaumcraftIntegration = true;
 }

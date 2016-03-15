@@ -23,10 +23,6 @@
  */
 package growthcraft.extoak.common.block;
 
-import growthcraft.bees.common.block.BlockBeeBox;
-import growthcraft.core.common.definition.BlockTypeDefinition;
-import growthcraft.extoak.GrowthCraftOak;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -65,14 +61,24 @@ public enum EnumBeeBoxForestry
 	ZEBRAWOOD("zebrawood");
 
 	public static final EnumBeeBoxForestry[] VALUES = values();
+	public static final EnumBeeBoxForestry[][] ROWS = {
+		{ LARCH, TEAK, ACACIA, LIME, CHESTNUT, WENGE, BAOBAB, SEQUOIA, KAPOK, EBONY, MAHOGANY, BALSA, WILLOW, WALNUT, GREENHEART },
+		{ CHERRY, MAHOE, POPLAR, PALM, PAPAYA, PINE, PLUM, MAPLE, CITRUS, GIGANTEUM, IPE, PADAUK, COCOBOLO, ZEBRAWOOD }
+	};
 
 	public final String name;
 	public final float hardness;
+	public final int meta;
+	public final int col;
+	public final int row;
 
 	private EnumBeeBoxForestry(String n, float h)
 	{
 		this.name = n;
 		this.hardness = h;
+		this.meta = ordinal();
+		this.col = meta % 15;
+		this.row = meta / 15;
 	}
 
 	private EnumBeeBoxForestry(String n)
@@ -112,23 +118,5 @@ public enum EnumBeeBoxForestry
 	public ItemStack getForestryFireproofPlanksStack()
 	{
 		return getForestryWoodStack("planksFireproof");
-	}
-
-	public BlockTypeDefinition<BlockBeeBox> getBlockDefinition()
-	{
-		if (GrowthCraftOak.beeBoxesForestry != null)
-		{
-			return GrowthCraftOak.beeBoxesForestry.get(ordinal());
-		}
-		return null;
-	}
-
-	public BlockTypeDefinition<BlockBeeBox> getBlockDefinitionFireproof()
-	{
-		if (GrowthCraftOak.beeBoxesForestry != null)
-		{
-			return GrowthCraftOak.beeBoxesForestry.get(VALUES.length + ordinal());
-		}
-		return null;
 	}
 }

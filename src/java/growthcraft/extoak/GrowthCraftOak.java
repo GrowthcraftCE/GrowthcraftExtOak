@@ -53,7 +53,9 @@ public class GrowthCraftOak
 	@Instance(MOD_ID)
 	public static GrowthCraftOak instance;
 
+	public static BlockTypeDefinition<BlockBeeBox> beeBoxBiomesOPlenty;
 	public static List<BlockTypeDefinition<BlockBeeBox>> beeBoxesForestry;
+	public static List<BlockTypeDefinition<BlockBeeBox>> beeBoxesForestryFireproof;
 
 	private ILogger logger = new GrcLogger(MOD_ID);
 	private GrcExtOakConfig config = new GrcExtOakConfig();
@@ -70,7 +72,8 @@ public class GrowthCraftOak
 		config.setLogger(logger);
 		config.load(event.getModConfigurationDirectory(), "growthcraft/extoak.conf");
 
-		modules.add(new growthcraft.extoak.integration.ForestryModule());
+		if (config.enableForestryIntegration) modules.add(new growthcraft.extoak.integration.ForestryModule());
+		if (config.enableBoPIntegration) modules.add(new growthcraft.extoak.integration.BoPModule());
 		if (config.enableThaumcraftIntegration) modules.add(new growthcraft.extoak.integration.ThaumcraftModule());
 
 		modules.preInit();
